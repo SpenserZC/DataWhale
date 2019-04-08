@@ -258,8 +258,25 @@ RIGHT JOIN
 | Sales      | Henry    | 80000  |
 | Sales      | Sam      | 60000  |
 +------------+----------+--------+
-
 此外，请考虑实现各部门前N高工资的员工功能。
+
+```sql
+---查找前三---
+SELECT Department.Name AS Department, e1.Name AS Employee, e1.Salary AS Salary
+FROM Employee e1
+JOIN Department
+ON e1.DepartmentId = Department.Id
+WHERE 3 > (
+SELECT COUNT(DISTINCT e2.Salary) 
+FROM Employee e2
+WHERE e2.Salary > e1.Salary AND e1.DepartmentId = e2.DepartmentId
+)
+ORDER BY Department.Name, e1.Salary DESC
+
+---查找前N的排名，把where后3改成N就好---
+```
+
+
 
 项目十二  分数排名 - （难度：中等）
 依然是昨天的分数表，实现排名功能，但是排名是非连续的，如下：
@@ -273,4 +290,8 @@ RIGHT JOIN
 | 3.65  | 4    |
 | 3.50  | 6    |
 +-------+------
-
+```sql
+---查询---
+SELECT s.score,(SELECT COUNT(*)+1 FROM scores AS s1 WHERE 					s1.score>s.score) AS rank
+	FROM scores s ORDER BY score DESC;
+```
