@@ -62,7 +62,6 @@ WHERE e2.Salary > e1.Salary AND e1.DepartmentId = e2.DepartmentId
 ORDER BY Department.Name, e1.Salary DESC
 ```
 
-
 项目八: 换座位（难度：中等）
 小美是一所中学的信息科技老师，她有一张 seat 座位表，平时用来储存学生名字和与他们相对应的座位 id。
 其中纵列的 **id **是连续递增的
@@ -91,6 +90,7 @@ ORDER BY Department.Name, e1.Salary DESC
 +---------+---------+
 **注意：**
 如果学生人数是奇数，则不需要改变最后一个同学的座位。
+
 ```sql
 ---建表插值---
 CREATE TABLE seat(id INT,Student VARCHAR(10));
@@ -133,6 +133,7 @@ SELECT(	CASE
 | 3.65 | 3 |
 | 3.50 | 4 |
 +-------+------+
+
 ### 答案
 ```sql
 ---建表，插值---
@@ -290,8 +291,9 @@ ORDER BY Department.Name, e1.Salary DESC
 | 3.65  | 4    |
 | 3.50  | 6    |
 +-------+------
+
 ```sql
 ---查询---
-SELECT s.score,(SELECT COUNT(*)+1 FROM scores AS s1 WHERE 					s1.score>s.score) AS rank
+SELECT s.score,(SELECT COUNT(score)+1 FROM scores AS s1 WHERE 					s1.score>s.score) AS rank
 	FROM scores s ORDER BY score DESC;
 ```
