@@ -117,27 +117,3 @@ output = pd.DataFrame({'Id': X_test.index,
                        'SalePrice': preds_test})
 output.to_csv('submission.csv', index=False)
 ```
-
-# Cross-Validation
-
-##### 介绍
-
-机器学习是一个反复的过程。
-
-你将面临选择哪些预测变量，使用哪种类型的模型，向这些模型提供哪些参数的选择。到目前为止，您已经通过数据驱动的方式通过验证模型质量来做出这些选择。
-
-但是这种方法有一些缺点。假设有个5000行的数据集。通常，将保留20%的数据作为验证数据集或者1000行。但这在确定模型分数方面留下了一些随机的机会。就是说，即使在不同的1000行上，模型都不准确，模型在谋一组1000行上表现良好。
-
-在极端情况下，假设只有一条数据，那么预测的结果将是100%.
-
-通常，验证集越大，我们的模型质量度量中的随机性（噪声）就越小，并且可靠性也就越高。不幸的是，我们只能通过从训练数据中删除行来获得较大的验证集，而较小的训练数据集意味着较差的模型。
-
-### 交叉验证
-
-在交叉验证中，我们将模型分为不同的子数据集去衡量数据的质量。
-
-例如，我们将数据分为5个部分，我们称之为 5-“folds”
-
-在这之后，我们将运行一个experiment，对每个fold:
-
-- In **Experiment 1**, we use the first fold as a validation (or holdout) set and everything else as training data. This gives us a measure of model quality based on a 20% holdout set.
